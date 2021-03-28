@@ -19,7 +19,7 @@ function get_user($db, $user_id){
       user_id = {$user_id}
     LIMIT 1
   ";
-　//fetch_queryでSQL文を処理し、返す
+//fetch_queryでSQL文を処理し、返す
   return fetch_query($db, $sql);
 }
 
@@ -61,7 +61,7 @@ function login_as($db, $name, $password){
 function get_login_user($db){
   //セッションにセットしたuser_idを＄login_user_idに代入する
   $login_user_id = get_session('user_id');
-　//get_userでPDOを利用し$login_user_id取得し、戻す
+//get_userでPDOを利用し$login_user_id取得し、戻す
   return get_user($db, $login_user_id);
 }
 
@@ -98,14 +98,14 @@ function is_valid_user_name($name) {
   $is_valid = true;
   //条件式でユーザー名の文字数のエラーチェックをし、falseであれば
   if(is_valid_length($name, USER_NAME_LENGTH_MIN, USER_NAME_LENGTH_MAX) === false){
-　　//set_errorでエラー表示をする
+//set_errorでエラー表示をする
     set_error('ユーザー名は'. USER_NAME_LENGTH_MIN . '文字以上、' . USER_NAME_LENGTH_MAX . '文字以内にしてください。');
     //$is_validはfalseとする
     $is_valid = false;
   }
   //$nameが英数字でなければ
   if(is_alphanumeric($name) === false){
-    　//set_errorでエラー表示をする
+//set_errorでエラー表示をする
     set_error('ユーザー名は半角英数字で入力してください。');
     //$is_validはfalseとする
     $is_valid = false;
@@ -153,7 +153,7 @@ function insert_user($db, $name, $password){
       users(name, password)
     VALUES ('{$name}', '{$password}');
   ";
-　//execute_queryでPDOを利用して、SQL文を実行する
+//execute_queryでPDOを利用して、SQL文を実行する
   return execute_query($db, $sql);
 }
 
