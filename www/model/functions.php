@@ -47,12 +47,8 @@ function get_file($name){
   //上記の処理をし、$get_file関数は空配列で返す
   return array();
 }
-
-//get_session関数で$nameを引数として渡し、
 function get_session($name){
-　//もしissetで、$_SESSION変数でセッションの中にある$nameが正しい、つまり安全確認ができれば
-  if(isset($_SESSION[$name]) === true){
-    //$_SESSION変数の＄nameを返す
+ if(isset($_SESSION[$name]) === true){
     return $_SESSION[$name];
   };
   //処理をし、＄get＿session関数は空で返す
@@ -139,7 +135,6 @@ function get_random_string($length = 20){
   //substrで文字列の一部を返す
   //base_convert変数で数値の基数を任意に変換する
   //hash関数でランダムに決めた文字のhash値を決める
-　//
   return substr(base_convert(hash('sha256', uniqid()), 16, 36), 0, $length);
 }
 

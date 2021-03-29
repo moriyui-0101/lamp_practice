@@ -21,7 +21,7 @@ function get_item($db, $item_id){
     WHERE
       item_id = {$item_id}
   ";
-　//fetch_queryでPDOを利用して、上記のSQL文を返す
+//fetch_queryでPDOを利用して、上記のSQL文を返す
   return fetch_query($db, $sql);
 }
 
@@ -46,7 +46,7 @@ function get_items($db, $is_open = false){
       WHERE status = 1
     ';
   }
-　//fetch_all_queryでPDOを利用し上記のSQL文を返す
+//fetch_all_queryでPDOを利用し上記のSQL文を返す
   return fetch_all_query($db, $sql);
 }
 
@@ -112,7 +112,7 @@ function insert_item($db, $name, $price, $stock, $filename, $status){
       )
     VALUES('{$name}', {$price}, {$stock}, '{$filename}', {$status_value});
   ";
-　//execute_queryでPDO利用し、上記SQL文を返す
+//execute_queryでPDO利用し、上記SQL文を返す
   return execute_query($db, $sql);
 }
 
@@ -158,9 +158,9 @@ function destroy_item($db, $item_id){
   }
   //トランザクション開始
   $db->beginTransaction();
-  //もし、delete_item関数を使用し$itemのitem_id（選択した商品ID）が削除でき（※delete_itemは下記記載あり）
+//もし、delete_item関数を使用し$itemのitem_id（選択した商品ID）が削除でき（※delete_itemは下記記載あり）
   if(delete_item($db, $item['item_id'])
-  　//かつイメージ図もダク所できたら（選択した商品イメージ）が削除できたら
+//かつイメージ図もダク所できたら（選択した商品イメージ）が削除できたら
     && delete_image($item['image'])){
     //コミットする
     $db->commit();

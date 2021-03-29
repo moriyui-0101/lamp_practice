@@ -88,7 +88,7 @@ function insert_cart($db, $user_id, $item_id, $amount = 1){
       )
     VALUES({$item_id}, {$user_id}, {$amount})
   ";
-　//execute_queryでSQLを返す
+//execute_queryでSQLを実行
 return execute_query($db, $sql);
 }
 
@@ -104,7 +104,7 @@ function update_cart_amount($db, $cart_id, $amount){
       cart_id = {$cart_id}
     LIMIT 1
   ";
-　//execute_queryでSQLを返す
+//execute_queryでSQLを返す
   return execute_query($db, $sql);
 }
 
@@ -118,13 +118,13 @@ function delete_cart($db, $cart_id){
       cart_id = {$cart_id}
     LIMIT 1
   ";
-　//execute_queryでPDOを利用しsql文を返す
+//execute_queryでPDOを利用しsql文を返す
   return execute_query($db, $sql);
 }
 
 //purchase_carts関数で
 function purchase_carts($db, $carts){
-　//validate_cart_purchase関数を利用し、＄cartsが違えば
+//validate_cart_purchase関数を利用し、＄cartsが違えば
   if(validate_cart_purchase($carts) === false){
     //falseを返す
     return false;
@@ -153,7 +153,7 @@ function delete_user_carts($db, $user_id){
     WHERE
       user_id = {$user_id}
   ";
-　//execute_queryで上記のSQL文を実行するようにする
+//execute_queryで上記のSQL文を実行するようにする
   execute_query($db, $sql);
 }
 
