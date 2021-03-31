@@ -16,11 +16,11 @@ function get_user($db, $user_id){
     FROM
       users
     WHERE
-      user_id = {$user_id}
+      user_id = :user_id
     LIMIT 1
   ";
 //fetch_queryでSQL文を処理し、返す
-  return fetch_query($db, $sql);
+  return fetch_query($db, $sql, array(':user_id' => $user_id));
 }
 
 //get_user_by_name関数で、$nameを引数とする
@@ -35,11 +35,11 @@ function get_user_by_name($db, $name){
     FROM
       users
     WHERE
-      name = '{$name}'
+      name = :name
     LIMIT 1
   ";
   //fetch_queryで上記SQLを実行し、返す
-  return fetch_query($db, $sql);
+  return fetch_query($db, $sql, array(':name' => $name));
 }
 
 //login_as関数で、$name, $passwordを引数で渡す
@@ -151,9 +151,9 @@ function insert_user($db, $name, $password){
   $sql = "
     INSERT INTO
       users(name, password)
-    VALUES ('{$name}', '{$password}');
+    VALUES (:name, :password);
   ";
 //execute_queryでPDOを利用して、SQL文を実行する
-  return execute_query($db, $sql);
+  return execute_query($db, $sql, array(':name' => $name, ':password' => $password));
 }
 
