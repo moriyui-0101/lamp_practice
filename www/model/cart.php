@@ -89,7 +89,7 @@ function insert_cart($db, $user_id, $item_id, $amount = 1){
     VALUES(:item_id, :user_id, :amount)
   ";
 //execute_queryでSQLを実行
-return execute_query($db, $sql, array('item_id' => $item_id, 'user_id' => $user_id, 'amount' => $amount));
+return execute_query($db, $sql, array(':item_id' => $item_id, ':user_id' => $user_id, ':amount' => $amount));
 }
 
 //update_cart_amount関数でPDO
@@ -154,7 +154,7 @@ function delete_user_carts($db, $user_id){
       user_id = :user_id
   ";
 //execute_queryで上記のSQL文を実行するようにする
-  execute_query($db, $sql, array('user_id' => $user_id));
+  execute_query($db, $sql, array(':user_id' => $user_id));
 }
 
 //sum_carts関数で合計数を計算する
