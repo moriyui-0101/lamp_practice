@@ -19,10 +19,10 @@ function get_item($db, $item_id){
     FROM
       items
     WHERE
-      item_id = {$item_id}
+      item_id = :item_id
   ";
 //fetch_queryでPDOを利用して、上記のSQL文を返す
-  return fetch_query($db, $sql);
+  return fetch_query($db, $sql, array(':item_id' => $item_id));
 }
 
 //get_items関数をPDO利用し、＄is_openがfalseであれば
@@ -110,10 +110,10 @@ function insert_item($db, $name, $price, $stock, $filename, $status){
         image,
         status
       )
-    VALUES('{$name}', {$price}, {$stock}, '{$filename}', {$status_value});
+    VALUES(:name, :price, :stock, :filename, :status_value);
   ";
 //execute_queryでPDO利用し、上記SQL文を返す
-  return execute_query($db, $sql);
+ return execute_query($db, $sql, array(':name' => $name, ':price' => $price, ':stock' => $stock, ':filename' => $filename, ':status_value' => $status_value));
 }
 
 //update_item_statusでPDOを利用し、$item_id, $status引数で渡す
@@ -123,13 +123,13 @@ function update_item_status($db, $item_id, $status){
     UPDATE
       items
     SET
-      status = {$status}
+      status = :status
     WHERE
-      item_id = {$item_id}
+      item_id = :item_id
     LIMIT 1
   ";
   //execute_queryでPDOを利用して、SQLを返す
-  return execute_query($db, $sql);
+  return execute_query($db, $sql, array(':status' => $status, ':item_id' => $item_id));
 }
 
 //update_item_stock関数で、PDOの利用、＄item_id,$stockを引数として渡す
@@ -139,13 +139,13 @@ function update_item_stock($db, $item_id, $stock){
     UPDATE
       items
     SET
-      stock = {$stock}
+      stock = :stock
     WHERE
-      item_id = {$item_id}
+      item_id = :item_id
     LIMIT 1
   ";
   //execute_queryでPDOを利用し、上記SQLを返す
-  return execute_query($db, $sql);
+  return execute_query($db, $sql, array(':stock' => $stock, ':item_id' => $item_id));
 }
 //destroy_item関数でPDOの利用、　$item_idを引数として渡し
 function destroy_item($db, $item_id){
@@ -180,11 +180,11 @@ function delete_item($db, $item_id){
     DELETE FROM
       items
     WHERE
-      item_id = {$item_id}
+      item_id = :item_id
     LIMIT 1
   ";
   //execute_queryで上記SQL文を返す
-  return execute_query($db, $sql);
+  return execute_query($db, $sql, array(':item_id' => $item_id));
 }
 
 

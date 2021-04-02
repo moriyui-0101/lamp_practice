@@ -25,10 +25,10 @@ function get_user_carts($db, $user_id){
     ON
       carts.item_id = items.item_id
     WHERE
-      carts.user_id = {$user_id}
+      carts.user_id = :user_id
   ";
   //fetch_all_queryでPDOを取得し、上記のSQL文を返す
-  return fetch_all_query($db, $sql);
+  return fetch_all_query($db, $sql, array(':user_id' => $user_id));
 }
 
 //get_user_cartでPDOを利用し、user_id,item_idを引数に渡す
@@ -53,12 +53,12 @@ function get_user_cart($db, $user_id, $item_id){
     ON
       carts.item_id = items.item_id
     WHERE
-      carts.user_id = {$user_id}
+      carts.user_id = :user_id
     AND
-      items.item_id = {$item_id}
+      items.item_id = :item_id
   ";
   //fetch_queryでPDOを取得し、上記のSQL文を取得する
-  return fetch_query($db, $sql);
+  return fetch_query($db, $sql, array(':user_id' => $user_id, 'item_id' => $item_id));
   //fetch_queryでPDOを取得し、上記のSQL文を取得する
 
 }
@@ -86,10 +86,10 @@ function insert_cart($db, $user_id, $item_id, $amount = 1){
         user_id,
         amount
       )
-    VALUES({$item_id}, {$user_id}, {$amount})
+    VALUES(:item_id, :user_id, :amount)
   ";
 //execute_queryでSQLを実行
-return execute_query($db, $sql);
+return execute_query($db, $sql, array(':item_id' => $item_id, ':user_id' => $user_id, ':amount' => $amount));
 }
 
 //update_cart_amount関数でPDO
@@ -99,13 +99,13 @@ function update_cart_amount($db, $cart_id, $amount){
     UPDATE
       carts
     SET
-      amount = {$amount}
+      amount = :amount
     WHERE
-      cart_id = {$cart_id}
+      cart_id = :cart_id
     LIMIT 1
   ";
 //execute_queryでSQLを返す
-  return execute_query($db, $sql);
+  return execute_query($db, $sql, array(':amount' => $amount, ':cart_id' => $cart_id));
 }
 
 //delete_cart関数を利用して
@@ -151,10 +151,10 @@ function delete_user_carts($db, $user_id){
     DELETE FROM
       carts
     WHERE
-      user_id = {$user_id}
+      user_id = :user_id
   ";
 //execute_queryで上記のSQL文を実行するようにする
-  execute_query($db, $sql);
+  execute_query($db, $sql, array(':user_id' => $user_id));
 }
 
 //sum_carts関数で合計数を計算する
