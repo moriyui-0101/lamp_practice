@@ -5,6 +5,7 @@ require_once '../conf/const.php';
 require_once MODEL_PATH . 'functions.php';
 //ユーザーデータに関するファイルの読み込み
 require_once MODEL_PATH . 'user.php';
+
 //ログイン確認のためにセッションを開始する。
 session_start();
 //もし、ログイン確認用関数がtrueであれば
@@ -12,6 +13,14 @@ if(is_logined() === true){
   //HOME_URLへリダイレクトする
   redirect_to(HOME_URL);
 }
+
+$token = get_post('csrf_token');
+
+if(is_valid_csrf_token($token) === false){
+  redirect_to(HOME_URL);
+}
+unset($_SESSION['csrf_token']);
+
 //$nameにPOST受診したnameを代入する
 $name = get_post('name');
 //$passwordにPOST受信したpasswordを代入する

@@ -15,6 +15,13 @@ if(is_logined() === false){
   //ログイン画面へ遷移する
   redirect_to(LOGIN_URL);
 }
+
+$token = get_post('csrf_token');
+if(is_valid_csrf_token($token) === false){
+  redirect_to(LOGIN_URL);
+}
+unset($_SESSION['csrf_token']);
+
 //PDO取得
 $db = get_db_connect();
 //PDOを利用してユーザーデータの取得

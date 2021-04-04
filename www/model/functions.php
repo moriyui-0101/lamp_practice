@@ -213,4 +213,24 @@ function h($h) {
 
 }
 
+//トークンの生成
+function get_csrf_token(){
+  //get_random_string()はユーザー定義関数。30文字のランダム値を得て、$tokenに代入する
+  $token = get_random_string(30);
+  //set_session()はユーザー定義関数。
+  set_session('csrf_token',$token);
+  return $token;
+}
+
+//$tokenがis_valid_csrf_token関数を使って、有効かどうかチェックをする
+function is_valid_csrf_token($token){
+  //もし$tokenが空なら
+  if($token=''){
+    //falseと返す
+    return false;
+  }
+  //そうでなければ、$tokenにget_sessionでセッションされているcsrf_tokenを代入する。
+  $token === get_session('csrf_token');
+}
+
 

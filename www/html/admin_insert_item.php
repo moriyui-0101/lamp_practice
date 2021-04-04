@@ -24,6 +24,12 @@ if(is_admin($user) === false){
   //ログイン画面へリダイレクトする
   redirect_to(LOGIN_URL);
 }
+$token = get_post('csrf_token');
+if(is_valid_csrf_token($token) === false){
+  redirect_to(LOGIN_URL);
+}
+unset($_SESSION['csrf_token']);
+
 //get_POST関数で受け取ったnameを＄nameへ代入
 $name = get_post('name');
 //get_POST関数で受け取ったpriceを＄priceへ代入

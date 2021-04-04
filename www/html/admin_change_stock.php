@@ -26,6 +26,11 @@ if(is_admin($user) === false){
   //ログインページへリダイレクトする
   redirect_to(LOGIN_URL);
 }
+$token = get_post('csrf_token');
+if(is_valid_csrf_token($token) === false){
+  redirect_to(LOGIN_URL);
+}
+unset($_SESSION['csrf_token']);
 
 //POSTで送られたitem_idを＄item_idへ代入する
 $item_id = get_post('item_id');

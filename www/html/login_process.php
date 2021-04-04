@@ -15,6 +15,13 @@ if(is_logined() === true){
   redirect_to(HOME_URL);
 }
 
+$token = get_post('csrf_token');
+
+if(is_valid_csrf_token($token) === false){
+  redirect_to(HOME_URL);
+}
+unset($_SESSION['csrf_token']);
+
 //＄nameにPOST受信で得たnameを代入するう
 $name = get_post('name');
 //＄passwordにPOST受信で得たpasswordを代入する
