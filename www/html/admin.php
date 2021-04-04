@@ -26,5 +26,8 @@ if(is_admin($user) === false){
 }
 //PDOを利用し、get_all_items関数で全ての関数を取得し、$itemsに代入する
 $items = get_all_items($db);
+
+//get_csrf_token関数を読み込むようにする（トークン生成と読み込みをする）　※返り値　＄tokenの関数
+$token = get_csrf_token();
 //adminviewへ読み込み
 include_once VIEW_PATH . '/admin_view.php';

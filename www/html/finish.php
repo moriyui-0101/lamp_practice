@@ -17,6 +17,13 @@ if(is_logined() === false){
   //ログイン画面へリダイレクトする。
   redirect_to(LOGIN_URL);
 }
+
+$token = get_post('csrf_token');
+if(is_valid_csrf_token($token) === false){
+  redirect_to(LOGIN_URL);
+}
+unset($_SESSION['csrf_token']);
+
 //PDOの取得する
 $db = get_db_connect();
 //PDOを活用して、ユーザーデーターを取得する
@@ -34,5 +41,7 @@ if(purchase_carts($db, $carts) === false){
 //$total_priceにuser_idが購入した全商品の合計金額をsum_cart関数で計算し、代入する
 $total_price = sum_carts($carts);
 
+//
+$token = get_csrf_token();
 //viewの中のfinish_view.phpを読み込む
 include_once '../view/finish_view.php';

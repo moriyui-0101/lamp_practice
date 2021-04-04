@@ -16,6 +16,14 @@ if(is_logined() === false){
   //ログイン画面へリダイレクトする
   redirect_to(LOGIN_URL);
 }
+
+$token = get_post('csrf_token');
+
+if(is_valid_csrf_token($token) === false){
+  redirect_to(LOGIN_URL);
+}
+unset($_SESSION['csrf_token']);
+
 //PDOを取得する
 $db = get_db_connect();
 //PDOを利用してログインユーザーのデータを取得
@@ -24,6 +32,8 @@ $user = get_login_user($db);
 $cart_id = get_post('cart_id');
 //POST受信のamountを＄amountに代入する
 $amount = get_post('amount');
+
+
 //updata_cart_amount関数を使用し、POST受信されたcart_id,amountが更新されたら
 if(update_cart_amount($db, $cart_id, $amount)){
   //購入数を購入しましたというメッセージを返す
