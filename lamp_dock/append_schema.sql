@@ -1,8 +1,3 @@
-SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
-START TRANSACTION;
-SET time_zone = "+00:00";
-
 -- 購入履歴TABLE　history_table
 -- 「注文番号」(order_id)「購入日時」(purchase_datatime)「注文の合計金額」(total)「ユーザーID」(user_id)
 -- 「注文番号」オートインクリメント　主key
