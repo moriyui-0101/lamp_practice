@@ -43,5 +43,6 @@ $total_price = sum_carts($carts);
 
 //
 $token = get_csrf_token();
+
 //viewの中のfinish_view.phpを読み込む
 include_once '../view/finish_view.php';
