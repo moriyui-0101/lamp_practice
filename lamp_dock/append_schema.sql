@@ -7,6 +7,7 @@ CREATE TABLE `history_table`(
     `purchase_datatime` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
     `total` int(11) NOT NULL,
     `user_id` int(11) NOT NULL,
+    primary key (`order_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- 購入明細履歴TABLE detail_table
@@ -14,9 +15,10 @@ CREATE TABLE `history_table`(
 -- 「明細番号」がオートインクリメント　主key
 
 CREATE TABLE `detail_table` (
-  `detail_id` int(11) NOT NULL,
+  `detail_id` int(11) NOT NULL AUTO_INCREMENT,
   `order_id` int(11) NOT NULL,
   `item_id` int(11) NOT NULL,
   `purchase_quantity` int(11) NOT NULL,
-  `purchase_price` int(11) NOT NULL
+  `purchase_price` int(11) NOT NULL,
+  primary key(`detail_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;

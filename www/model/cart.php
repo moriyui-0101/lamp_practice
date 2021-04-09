@@ -124,7 +124,7 @@ function delete_cart($db, $cart_id){
 
 //purchase_carts関数で
 function purchase_carts($db, $carts){
-//validate_cart_purchase関数を利用し、＄cartsが違えば
+//validate_cart_purchase関数をカートに商品が入っているか確認して入っていなければ
   if(validate_cart_purchase($carts) === false){
     //falseを返す
     return false;
