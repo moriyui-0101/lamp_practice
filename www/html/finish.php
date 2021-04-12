@@ -10,6 +10,11 @@ require_once MODEL_PATH . 'item.php';
 //カート内にあるデータに関するファイルの読み込み
 require_once MODEL_PATH . 'cart.php';
 
+require_once MODEL_PATH . 'detail.php';
+
+require_once MODEL_PATH . 'history.php';
+
+
 //ログイン確認のために、セッションを開始する
 session_start();
 //もし、is_logined関数でfelse　つまりログイン出来なかった時は、
@@ -40,6 +45,36 @@ if(purchase_carts($db, $carts) === false){
 } 
 //$total_priceにuser_idが購入した全商品の合計金額をsum_cart関数で計算し、代入する
 $total_price = sum_carts($carts);
+
+//トランザクション開始
+$db->beginTransaction();
+//regist_historyでsqlに登録する。
+if(regist_history($db, $total_price, $user['user_id']) === false){
+  //ロールバックをするときは、regist_historyがfalseの時
+  $db->rollback();
+  //商品登録に失敗しましたというメッセージを返す
+  set_error('購入履歴の登録に失敗しました。');
+  //CART_URLへリダイレクトする
+  redirect_to(CART_URL);
+}
+
+//regist_historyでオートインクリメントで作られたorder_idをlastInsertIdでわたす
+$order_id = $db->lastInsertId();
+
+//cartsにitem_id、purchase_quantity、purchase_priceに入っている
+if(regist_detail($db, $order_id, $carts)){
+  //コミットする
+  $db->commit();
+
+  //購入明細履歴を登録しましたというメッセージを返す
+  set_message('購入明細履歴を登録しました');
+}else{
+  //ロールバック
+  $db->rollback();
+  set_error('購入詳細履歴の登録に失敗しました');
+  //CART_URLへリダイレクトする
+  redirect_to(CART_URL);
+}
 
 //
 $token = get_csrf_token();
