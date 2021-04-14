@@ -39,3 +39,26 @@ function insert_detail($db, $order_id, $item_id, $purchase_quantity, $purchase_p
                ";
            return execute_query($db, $sql, array(':order_id' => $order_id, ':item_id' => $item_id, ':purchase_quantity' => $purchase_quantity, ':purchase_price' => $purchase_price));
 }
+
+//get_user_detail関数で指定ユーザーの指定された商品（詳細履歴ボタンを押された商品を選ぶようにする）
+function get_user_details($db, $order_id){
+    $sql = "
+    SELECT
+      items.name,
+      detail_table.purchase_quantity,
+      detail_table.purchase_price  
+    FROM
+      detail_table
+    JOIN
+      items
+    ON
+      detail_table.item_id = items.item_id
+    WHERE
+      detail_table.order_id = :order_id
+  ";
+  return fetch_all_query($db, $sql, array('order_id' => $order_id));
+}
+
+
+
+
