@@ -2,3 +2,8 @@
   margin-top: 10px;
 }
 
+.ranking {
+  counter-reset: ranking-counter;
+  content: counter(ranking-counter) "位 ";
+}
+
