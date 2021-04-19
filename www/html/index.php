@@ -8,6 +8,8 @@ require_once MODEL_PATH . 'user.php';
 //商品データに関するファイルの読み込み
 require_once MODEL_PATH . 'item.php';
 
+require_once MODEL_PATH . 'detail.php';
+
 //ログイン確認のために、セッションを開始する
 session_start();
 //もし、is_loginedというログイン確認用の関数がfalseだった時、
@@ -22,6 +24,10 @@ $user = get_login_user($db);
 //PDOを活用し商品データーを取得する
 $items = get_open_items($db);
 
+$ranks = get_ranks($db);
+
+//順位を初期化
+$ranking = 1;
 //
 $token = get_csrf_token();
 

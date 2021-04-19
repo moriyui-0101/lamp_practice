@@ -59,6 +59,27 @@ function get_user_details($db, $order_id){
   return fetch_all_query($db, $sql, array('order_id' => $order_id));
 }
 
-
-
+function get_ranks($db){
+  $sql = "
+  SELECT 
+    items.name,
+    items.image, 
+    items.price, 
+    items.status 
+  FROM 
+    items 
+  INNER JOIN 
+    detail_table 
+  ON 
+    items.item_id = detail_table.item_id 
+  WHERE 
+    items.status =1 
+  GROUP BY
+    items.item_id 
+  ORDER BY
+    SUM(detail_table.purchase_quantity) DESC 
+  LIMIT 3;
+  ";
+  return fetch_all_query($db, $sql);
+}
 
