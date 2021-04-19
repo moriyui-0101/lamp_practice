@@ -55,7 +55,6 @@
     <h2>ランキング</h2>
     <div class="card-deck">
       <div class="row">
-        <div class="ranking">
         <?php foreach($ranks as $rank){ ?>
           <div class="col-6 item">
             <div class="card h-100 text-center">
@@ -76,7 +75,6 @@
           </div>
         
         <?php } ?>
-        </div>
       </div>
     </div>
   </div>
